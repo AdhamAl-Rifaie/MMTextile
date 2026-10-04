@@ -1,5 +1,6 @@
 import { IntroReveal } from "@/components/intro-reveal";
 import { HeroTitle } from "@/components/hero-title";
+import { OpeningHero } from "@/components/opening-hero";
 import { ProductShowcase } from "@/components/product-showcase";
 import { ProductCatalog } from "@/components/product-catalog";
 import { SiteFooter } from "@/components/site-footer";
@@ -39,6 +40,8 @@ function HomeShell({
             </div>
 
             <HeroTitle />
+
+            <OpeningHero />
 
             <div className="relative left-1/2 h-1 w-[100dvw] max-w-[100dvw] -translate-x-1/2 bg-[#f1c85b]" />
 
