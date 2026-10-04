@@ -1,10 +1,11 @@
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { loadEnvConfig } from "@next/env";
+import nextEnv from "@next/env";
 import { createClient } from "@supabase/supabase-js";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const { loadEnvConfig } = nextEnv;
 loadEnvConfig(projectRoot);
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
