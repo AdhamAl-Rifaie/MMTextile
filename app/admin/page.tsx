@@ -1,7 +1,7 @@
 import { ProductAdminWorkspace } from "@/components/product-admin-workspace";
 import { signOut } from "@/app/actions";
 import { getLocalProductRows, type LocalProductRow } from "@/lib/local-db";
-import { isLocalAdminSignedIn, LOCAL_ADMIN_EMAIL } from "@/lib/local-auth";
+import { getLocalAdminEmail, isLocalAdminSignedIn } from "@/lib/local-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -10,6 +10,7 @@ export default async function AdminPage() {
     redirect("/login");
   }
 
+  const adminEmail = getLocalAdminEmail();
   const productRows: LocalProductRow[] = await getLocalProductRows();
 
   return (
@@ -36,8 +37,8 @@ export default async function AdminPage() {
         </header>
 
         <div className="flex justify-end">
-          <span className="user-pill" title={LOCAL_ADMIN_EMAIL}>
-            {LOCAL_ADMIN_EMAIL}
+          <span className="user-pill" title={adminEmail}>
+            {adminEmail}
           </span>
         </div>
 

@@ -1,5 +1,5 @@
 import { LoginForm } from "@/components/login-form";
-import { isLocalAdminSignedIn, LOCAL_ADMIN_EMAIL } from "@/lib/local-auth";
+import { getLocalAdminEmail, isLocalAdminSignedIn } from "@/lib/local-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -14,7 +14,7 @@ export default async function LoginPage() {
         <Link className="text-[0.78rem] font-black uppercase text-[#f1c85b] underline underline-offset-4" href="/">
           Back to website
         </Link>
-        <LoginForm adminEmail={LOCAL_ADMIN_EMAIL} />
+        <LoginForm adminEmail={getLocalAdminEmail()} />
       </div>
     </main>
   );
