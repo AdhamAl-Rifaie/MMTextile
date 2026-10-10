@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { introExitDuration, introExitStart } from "@/lib/intro-timing";
 
 const photos = [
   {
@@ -55,9 +56,9 @@ const imageEnterDuration = 0.78;
 const textEnterDuration = 0.68;
 const textEnterBase =
   imageEnterStart + imageEnterStep * (photos.length - 1) + imageEnterDuration - textEnterDuration - 0.5;
-const firstReverseStart = 2.98;
+const firstReverseStart = introExitStart;
 const revealStart = firstReverseStart;
-const revealDuration = 1.75;
+const revealDuration = introExitDuration;
 const letterDelays = [0.22, 0.02, 0.36, 0.12, 0.5, 0.28, 0.08, 0.42, 0.18];
 const letterExitDelays = [0.15, 0.02, 0.21, 0.08, 0.24, 0.12, 0, 0.18, 0.05];
 

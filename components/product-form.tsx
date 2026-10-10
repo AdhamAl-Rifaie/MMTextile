@@ -204,7 +204,7 @@ export function ProductForm({
           ) : null}
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <div className="field">
             <label htmlFor="size">Size</label>
             <input
@@ -232,12 +232,24 @@ export function ProductForm({
           <div className="field">
             <label htmlFor="weight">Weight</label>
             <input
-              defaultValue={product?.weight ?? "Custom GSM"}
+              defaultValue={product?.weight ?? ""}
               id="weight"
               name="weight"
               type="text"
-              placeholder="520 GSM"
-              required
+              inputMode="decimal"
+              placeholder="200 g"
+            />
+          </div>
+
+          <div className="field">
+            <label htmlFor="gsm">GSM</label>
+            <input
+              defaultValue={product?.gsm ?? ""}
+              id="gsm"
+              name="gsm"
+              type="text"
+              inputMode="decimal"
+              placeholder="450"
             />
           </div>
         </div>

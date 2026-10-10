@@ -1,18 +1,17 @@
 import { cookies } from "next/headers";
 
-const FALLBACK_ADMIN_EMAIL = "admin@email.com";
 const LOCAL_ADMIN_COOKIE = "mmtextile_local_admin";
 const LOCAL_ADMIN_COOKIE_VALUE = "local-admin-session-v2";
 
-export function getLocalAdminEmail() {
-  return process.env.ADMIN_EMAIL || FALLBACK_ADMIN_EMAIL;
-}
-
 export function isValidLocalAdmin(email: string, password: string) {
-  const adminEmail = getLocalAdminEmail();
+  const adminEmail = process.env.ADMIN_EMAIL;
   const adminPassword = process.env.ADMIN_PASSWORD;
 
-  return Boolean(adminPassword) && email.trim().toLowerCase() === adminEmail.toLowerCase() && password === adminPassword;
+  if (!adminEmail || !adminPassword) {
+    return false;
+  }
+
+  return email.trim().toLowerCase() === adminEmail.toLowerCase() && password === adminPassword;
 }
 
 export async function isLocalAdminSignedIn() {

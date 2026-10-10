@@ -7,6 +7,7 @@ import {
   fallbackProducts,
   mapProductRow,
   normalizeProductCategory,
+  normalizeProductMeasurements,
   normalizeProductSubcategory,
   normalizeProductVariants,
   type ProductColorVariant,
@@ -32,6 +33,7 @@ type NewLocalProduct = {
   size: string;
   shape: string;
   weight: string;
+  gsm: string;
   color: string;
   note: string;
   variants: ProductColorVariant[];
@@ -94,7 +96,8 @@ function toSupabaseProductPayload(product: LocalProductRow) {
     material: product.material || "Cotton 100%",
     size: product.size || "Custom size",
     shape: product.shape || "Rectangle",
-    weight: product.weight || "Custom GSM",
+    weight: product.weight || "",
+    gsm: product.gsm || "",
     color: product.color || "#d7ad47",
     note: product.note || "",
     image_url: product.image_url ?? null,
@@ -118,6 +121,7 @@ function createSeedDb(): LocalDb {
       size: product.size,
       shape: product.shape,
       weight: product.weight,
+      gsm: product.gsm,
       note: product.note,
       color: product.color,
       image_url: product.imageUrl,
@@ -128,6 +132,8 @@ function createSeedDb(): LocalDb {
 }
 
 function normalizeLocalProduct(product: LocalProductRow): LocalProductRow {
+  const measurements = normalizeProductMeasurements(product.weight, product.gsm);
+
   return {
     ...product,
     category: normalizeProductCategory(product.category),
@@ -135,7 +141,8 @@ function normalizeLocalProduct(product: LocalProductRow): LocalProductRow {
     material: product.material || "Cotton 100%",
     size: product.size || "Custom size",
     shape: product.shape || "Rectangle",
-    weight: product.weight || "Custom GSM",
+    weight: measurements.weight,
+    gsm: measurements.gsm,
     note: product.note || "",
     color: product.color || "#d7ad47",
     image_url: product.image_url ?? null,
@@ -258,6 +265,7 @@ export async function addLocalProduct(product: NewLocalProduct) {
     size: product.size,
     shape: product.shape,
     weight: product.weight,
+    gsm: product.gsm,
     color: product.color,
     note: product.note,
     image_url: product.variants[0]?.imageUrl ?? null,
@@ -305,6 +313,7 @@ export async function updateLocalProduct(productId: string, product: NewLocalPro
         size: product.size,
         shape: product.shape,
         weight: product.weight,
+        gsm: product.gsm,
         color: product.color,
         note: product.note,
         image_url: product.variants[0]?.imageUrl ?? null,
@@ -342,6 +351,7 @@ export async function updateLocalProduct(productId: string, product: NewLocalPro
     size: product.size,
     shape: product.shape,
     weight: product.weight,
+    gsm: product.gsm,
     color: product.color,
     note: product.note,
     image_url: product.variants[0]?.imageUrl ?? null,

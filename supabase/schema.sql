@@ -28,7 +28,8 @@ create table if not exists public.mmtextile_products (
   material text not null default 'Cotton 100%',
   size text not null default 'Custom size',
   shape text not null default 'Rectangle',
-  weight text not null default 'Custom GSM',
+  weight text not null default '',
+  gsm text not null default '',
   color text not null default '#d7ad47',
   note text not null default '',
   image_url text,
@@ -36,6 +37,12 @@ create table if not exists public.mmtextile_products (
   created_at timestamptz not null default now(),
   updated_at timestamptz
 );
+
+alter table public.mmtextile_products
+add column if not exists gsm text not null default '';
+
+alter table public.mmtextile_products
+alter column weight set default '';
 
 alter table public.mmtextile_products enable row level security;
 

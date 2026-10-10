@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Barlow_Condensed, Inter_Tight } from "next/font/google";
+import { Barlow_Condensed, Cormorant_Garamond, Inter_Tight } from "next/font/google";
 import "./globals.css";
 
 const displayFont = Inter_Tight({
@@ -14,6 +14,13 @@ const brandFont = Barlow_Condensed({
   variable: "--font-brand"
 });
 
+const editorialFont = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-editorial"
+});
+
 export const metadata: Metadata = {
   title: "MMTextile",
   description: "MMTextile customer textile request form"
@@ -25,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${brandFont.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${displayFont.variable} ${brandFont.variable} ${editorialFont.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preload" as="image" href="/uploads/products/basic-floral-towel-stack.webp" />
         <link rel="preload" as="image" href="/uploads/products/basic-floral-towel-rolls.webp" />

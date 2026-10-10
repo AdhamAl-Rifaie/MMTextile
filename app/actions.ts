@@ -56,7 +56,8 @@ async function readProductPayload(formData: FormData, existingProduct?: LocalPro
   const material = materialChoice === "__custom" ? customMaterial : materialChoice;
   const size = String(formData.get("size") ?? "").trim();
   const shape = String(formData.get("shape") ?? "Rectangle").trim() || "Rectangle";
-  const weight = String(formData.get("weight") ?? "Custom GSM").trim() || "Custom GSM";
+  const weight = String(formData.get("weight") ?? "").trim();
+  const gsm = String(formData.get("gsm") ?? "").trim().replace(/\s*gsm$/i, "");
   const note = String(formData.get("note") ?? "").trim();
 
   if (!name || !category || !material || !size) {
@@ -114,6 +115,7 @@ async function readProductPayload(formData: FormData, existingProduct?: LocalPro
     size,
     shape,
     weight,
+    gsm,
     color: variants[0].color,
     note,
     variants

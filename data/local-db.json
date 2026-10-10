@@ -1,6 +1,61 @@
 {
   "products": [
     {
+      "id": "a384b933-647d-46f8-90ff-1f2d165f562f",
+      "user_id": "local-admin",
+      "name": "Circle Border Towels",
+      "category": "Home Towels",
+      "subcategory": "",
+      "material": "Cotton 100%",
+      "size": "50 x 90 cm",
+      "shape": "Rectangle",
+      "weight": "200 g",
+      "color": "#d7ad47",
+      "note": "100% super fine cotton",
+      "image_url": "/uploads/products/circle-border-towels-variant-1-92e7db85-62b6-4725-bba4-72939ffd264b.webp",
+      "variants": [
+        {
+          "id": "bacf8d36-421a-4544-968b-ba86b09ae1f1",
+          "name": "Blue",
+          "color": "#d7ad47",
+          "imageUrl": "/uploads/products/circle-border-towels-variant-1-92e7db85-62b6-4725-bba4-72939ffd264b.webp"
+        },
+        {
+          "id": "4a84c9ef-c15a-4116-8100-be26dd4a8223",
+          "name": "White",
+          "color": "#d7ad47",
+          "imageUrl": "/uploads/products/circle-border-towels-variant-2-121014ee-f5e0-4675-b5ad-3492e660f3fe.webp"
+        },
+        {
+          "id": "a46c1cc5-0b82-4d6f-9a22-255ad46185f1",
+          "name": "Navy",
+          "color": "#d7ad47",
+          "imageUrl": "/uploads/products/circle-border-towels-variant-3-8e6f1522-6cf0-44d6-8e27-28a4b7cc8419.webp"
+        },
+        {
+          "id": "ce17ea88-9ece-4240-b10c-fa8990e243c4",
+          "name": "Pink",
+          "color": "#d7ad47",
+          "imageUrl": "/uploads/products/circle-border-towels-variant-4-30ec9a47-df3f-490d-a367-c726029b9acc.webp"
+        },
+        {
+          "id": "539a2c3d-d03c-4d45-b705-eadeb2a28d19",
+          "name": "Stack View",
+          "color": "#d7ad47",
+          "imageUrl": "/uploads/products/circle-border-towels-variant-5-7afc1203-3d7d-4773-9aab-64a6665b2352.webp"
+        },
+        {
+          "id": "930001cc-9f58-40a2-9a44-4729e1d6a6d5",
+          "name": "Stack View",
+          "color": "#d7ad47",
+          "imageUrl": "/uploads/products/circle-border-towels-variant-6-91529c36-6317-4f4f-8c60-2cf243f37a96.webp"
+        }
+      ],
+      "created_at": "2026-10-04T16:22:24.714Z",
+      "gsm": "450",
+      "updated_at": "2026-10-10T13:11:07.958Z"
+    },
+    {
       "id": "luxury-towel-2026",
       "user_id": "local-admin",
       "name": "Luxury Towel",
@@ -9,31 +64,32 @@
       "material": "100% Egyptian cotton",
       "size": "50 x 90 cm",
       "shape": "Rectangle",
-      "weight": "200 Gram / 450 GSM",
+      "weight": "200 Gram",
       "color": "#182d5a",
       "note": "High-quality luxury towel woven from 100% Egyptian cotton. Its soft, absorbent 50 x 90 cm construction weighs 200 grams at a dense 450 GSM, with refined decorative borders designed for comfort, durability, and an elegant finish.",
-      "image_url": "/uploads/products/luxury-towel-premium.webp",
+      "image_url": null,
       "variants": [
         {
           "id": "luxury-towel-premium",
           "name": "Premium Collection",
           "color": "#182d5a",
-          "imageUrl": "/uploads/products/luxury-towel-premium.webp"
+          "imageUrl": null
         },
         {
           "id": "luxury-towel-circle-weave",
           "name": "Circle Weave",
           "color": "#a71854",
-          "imageUrl": "/uploads/products/luxury-towel-circle-weave.webp"
+          "imageUrl": null
         },
         {
           "id": "luxury-towel-floral-weave",
           "name": "Floral Weave",
           "color": "#df5794",
-          "imageUrl": "/uploads/products/luxury-towel-floral-weave.webp"
+          "imageUrl": null
         }
       ],
-      "created_at": "2026-09-28T17:51:01.000Z"
+      "created_at": "2026-09-28T17:51:01.000Z",
+      "gsm": "450"
     },
     {
       "id": "d2e41011-6f14-4485-b687-b2f3b07dc43a",
@@ -45,49 +101,20 @@
       "size": "210x90",
       "shape": "Beach Towel",
       "weight": "650",
-      "color": "Orange",
+      "color": "Blue",
       "note": "Oversized 210 x 90 cm beach towel made from 100% Egyptian cotton. Its substantial 650-gram construction offers soft absorbency, generous coverage, and vivid printed designs for poolside and seaside use.",
-      "image_url": "/uploads/products/beach-towel-variant-1-7e478efb-ef57-4976-b437-441ebed39459.webp",
+      "image_url": null,
       "variants": [
-        {
-          "id": "db93775a-1643-4db9-ac38-25d101f7e8b6",
-          "name": "Orange",
-          "color": "Orange",
-          "imageUrl": "/uploads/products/beach-towel-variant-1-7e478efb-ef57-4976-b437-441ebed39459.webp"
-        },
-        {
-          "id": "18907f21-a60a-4034-87c0-68fcc9a25e1a",
-          "name": "Orange",
-          "color": "Orange",
-          "imageUrl": "/uploads/products/beach-towel-variant-2-90f2ff8b-ab51-4ef6-906b-c6e220eaf50b.webp"
-        },
-        {
-          "id": "5f68981c-550d-41ab-a002-231077e10c9a",
-          "name": "Blue",
-          "color": "Blue",
-          "imageUrl": "/uploads/products/beach-towel-variant-3-ea6632a4-6845-48dc-84ca-ad0cedd591e9.webp"
-        },
-        {
-          "id": "1c1a2d9b-8116-4ffa-b2b1-924a206bf2bf",
-          "name": "White",
-          "color": "White",
-          "imageUrl": "/uploads/products/beach-towel-variant-4-267d05e3-412f-4a9f-9f2d-fb3893f1f1bd.webp"
-        },
-        {
-          "id": "6a3e5b10-16df-42da-b44f-a4c28bf845ad",
-          "name": "Blue",
-          "color": "Blue",
-          "imageUrl": "/uploads/products/beach-towel-variant-5-941a4d59-0bb0-4bdc-9bce-5ef5e02afb4b.webp"
-        },
         {
           "id": "0d6b73a7-b8cf-47a1-9b29-5607ce5ebfb2",
           "name": "Blue",
           "color": "Blue",
-          "imageUrl": "/uploads/products/beach-towel-variant-6-d609806a-1f6c-4b7b-af55-a11052b5e287.webp"
+          "imageUrl": null
         }
       ],
       "created_at": "2026-09-24T19:00:48.737Z",
-      "updated_at": "2026-09-28T15:30:31.748Z"
+      "updated_at": "2026-10-04T16:15:07.645Z",
+      "gsm": ""
     },
     {
       "id": "bfbbe057-65d2-4c9b-b501-03f31bf96b53",
@@ -98,41 +125,11 @@
       "material": "Cotton 100%",
       "size": "50 x 90 cm",
       "shape": "Rectangle",
-      "weight": "210 gm",
-      "color": "Yellow",
+      "weight": "200 gm",
+      "color": "Red",
       "note": "Classic 50 x 90 cm everyday towel made from 100% Egyptian cotton. Its practical 210-gram construction combines soft absorbency, quick drying, and six versatile colors for home, hospitality, and daily use.",
-      "image_url": "/uploads/products/classic-basic-towel-variant-1-c86009af-2322-44bb-9489-e1e791e9e386.webp",
+      "image_url": "/uploads/products/classic-basic-towel-variant-6-e888da07-824b-4d2d-8b6d-e55945b892cd.webp",
       "variants": [
-        {
-          "id": "f4735020-ff43-4868-a81d-af7566ebae99",
-          "name": "Yellow",
-          "color": "Yellow",
-          "imageUrl": "/uploads/products/classic-basic-towel-variant-1-c86009af-2322-44bb-9489-e1e791e9e386.webp"
-        },
-        {
-          "id": "584786d5-a88f-4242-b697-c74fe812f1b0",
-          "name": "Blue",
-          "color": "Blue",
-          "imageUrl": "/uploads/products/classic-basic-towel-variant-2-a160313a-c899-4597-b1f8-c1a81c045bd7.webp"
-        },
-        {
-          "id": "9a3d4347-e9f4-4e57-962d-7b5f260e3675",
-          "name": "Tourqouise",
-          "color": "Tourqouise",
-          "imageUrl": "/uploads/products/classic-basic-towel-variant-3-cd4403c2-3131-4b24-8314-cedb1f9ec28d.webp"
-        },
-        {
-          "id": "4e91a924-f767-4b99-b556-8690414e62a7",
-          "name": "Brown",
-          "color": "Brown",
-          "imageUrl": "/uploads/products/classic-basic-towel-variant-4-eb649808-c633-4e9a-ac6b-e369610e787c.webp"
-        },
-        {
-          "id": "8a19c319-20b1-46aa-aac8-4ac8b69dbbcd",
-          "name": "Burgundy",
-          "color": "Burgundy",
-          "imageUrl": "/uploads/products/classic-basic-towel-variant-5-45caff62-8beb-49a3-b642-992e3a3cc832.webp"
-        },
         {
           "id": "d63764a1-b0ae-41c8-8493-9129c2f5863e",
           "name": "Red",
@@ -141,7 +138,8 @@
         }
       ],
       "created_at": "2026-09-24T17:18:42.961Z",
-      "updated_at": "2026-10-02T11:31:58.431Z"
+      "updated_at": "2026-10-10T13:10:40.736Z",
+      "gsm": ""
     },
     {
       "id": "basic-floral-towel-set",
@@ -152,7 +150,7 @@
       "material": "Cotton 100%",
       "size": "50 x 90 cm",
       "shape": "Stack",
-      "weight": "430 GSM",
+      "weight": "200 g",
       "color": "#d47b8f",
       "note": "Soft everyday basic towel set with a floral jacquard border and warm bathroom styling. The set shows stacked, rolled, and close-up detail views so customers can understand the texture, colors, and finish before choosing a variant.",
       "image_url": "/uploads/products/basic-towel-set-variant-1-5c1d7f44-529f-4300-afd7-61fd3f41de0a.webp",
@@ -189,7 +187,8 @@
         }
       ],
       "created_at": "2026-09-29T19:19:08.000Z",
-      "updated_at": "2026-10-02T11:40:53.012Z"
+      "updated_at": "2026-10-10T13:10:56.287Z",
+      "gsm": "450"
     },
     {
       "id": "demo-royal-border-bath-towel",
@@ -200,38 +199,21 @@
       "material": "100% Egyptian cotton",
       "size": "70 x 140 cm",
       "shape": "Rectangle",
-      "weight": "620 GSM",
-      "color": "#741024",
+      "weight": "",
+      "color": "#d7ad47",
       "note": "Premium bath towel with a rich decorative border and a dense terry face. Built for boutique hospitality, spa suites, and elevated home sets that need a polished visual finish.",
-      "image_url": "/uploads/products/luxury-towel-circle-weave.webp",
+      "image_url": null,
       "variants": [
         {
-          "id": "demo-royal-border-burgundy",
-          "name": "Burgundy",
-          "color": "#741024",
-          "imageUrl": "/uploads/products/luxury-towel-circle-weave.webp"
-        },
-        {
-          "id": "demo-royal-border-silver",
-          "name": "Silver",
-          "color": "#cfcfd2",
-          "imageUrl": "/uploads/products/luxury-towel-premium.webp"
-        },
-        {
-          "id": "demo-royal-border-pink",
-          "name": "Pink",
-          "color": "#df5794",
-          "imageUrl": "/uploads/products/luxury-towel-floral-weave.webp"
-        },
-        {
           "id": "ebca01a8-af4f-43f2-8dad-26ac70f0360d",
-          "name": "blue",
+          "name": "Color 1",
           "color": "#d7ad47",
           "imageUrl": null
         }
       ],
       "created_at": "2026-09-29T10:11:00.000Z",
-      "updated_at": "2026-10-02T11:31:35.262Z"
+      "updated_at": "2026-10-10T13:09:22.865Z",
+      "gsm": "620"
     },
     {
       "id": "demo-spa-velour-towel",
@@ -242,31 +224,32 @@
       "material": "100% Egyptian cotton",
       "size": "80 x 160 cm",
       "shape": "Oversized",
-      "weight": "680 GSM",
+      "weight": "",
       "color": "#eadfc9",
       "note": "Oversized spa towel with a velour-feel surface, soft hand touch, and heavier body. Designed for high-end spa rooms, sauna areas, and premium bathroom displays.",
-      "image_url": "/uploads/products/luxury-towel-floral-weave.webp",
+      "image_url": null,
       "variants": [
         {
           "id": "demo-spa-velour-cream",
           "name": "Cream",
           "color": "#eadfc9",
-          "imageUrl": "/uploads/products/luxury-towel-floral-weave.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-spa-velour-blue",
           "name": "Deep Blue",
           "color": "#182d5a",
-          "imageUrl": "/uploads/products/luxury-towel-premium.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-spa-velour-plum",
           "name": "Plum",
           "color": "#7c2476",
-          "imageUrl": "/uploads/products/luxury-towel-circle-weave.webp"
+          "imageUrl": null
         }
       ],
-      "created_at": "2026-09-29T10:10:00.000Z"
+      "created_at": "2026-09-29T10:10:00.000Z",
+      "gsm": "680"
     },
     {
       "id": "demo-egyptian-guest-towel-set",
@@ -277,31 +260,32 @@
       "material": "100% Egyptian cotton",
       "size": "30 x 50 cm",
       "shape": "Stack",
-      "weight": "450 GSM",
+      "weight": "",
       "color": "#d7ad47",
       "note": "Compact guest towel set for reception trays, hotel suites, and powder rooms. The soft cotton pile gives a refined hand feel while keeping the profile neat and stackable.",
-      "image_url": "/uploads/products/luxury-towel-premium.webp",
+      "image_url": null,
       "variants": [
         {
           "id": "demo-egyptian-guest-gold",
           "name": "Gold",
           "color": "#d7ad47",
-          "imageUrl": "/uploads/products/luxury-towel-premium.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-egyptian-guest-mauve",
           "name": "Mauve",
           "color": "#b77aa8",
-          "imageUrl": "/uploads/products/luxury-towel-floral-weave.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-egyptian-guest-wine",
           "name": "Wine",
           "color": "#741024",
-          "imageUrl": "/uploads/products/luxury-towel-circle-weave.webp"
+          "imageUrl": null
         }
       ],
-      "created_at": "2026-09-29T10:09:00.000Z"
+      "created_at": "2026-09-29T10:09:00.000Z",
+      "gsm": "450"
     },
     {
       "id": "demo-hotel-hand-towel",
@@ -312,31 +296,32 @@
       "material": "Cotton 100%",
       "size": "40 x 70 cm",
       "shape": "Compact",
-      "weight": "430 GSM",
+      "weight": "",
       "color": "#f7f0de",
       "note": "Clean hand towel for hotels, gyms, and home bathrooms. The compact size is easy to stack, quick to wash, and comfortable for repeated daily use.",
-      "image_url": "/uploads/products/classic-basic-towel-variant-2-8498419e-356d-4ced-b5f1-b7f114019552.webp",
+      "image_url": null,
       "variants": [
         {
           "id": "demo-hotel-hand-white",
           "name": "White",
           "color": "#f7f0de",
-          "imageUrl": "/uploads/products/classic-basic-towel-variant-2-8498419e-356d-4ced-b5f1-b7f114019552.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-hotel-hand-grey",
           "name": "Grey",
           "color": "#9fa4a8",
-          "imageUrl": "/uploads/products/classic-basic-towel-variant-3-f4748ab5-cc07-4855-97dc-bba2464e8cca.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-hotel-hand-navy",
           "name": "Navy",
           "color": "#172b4d",
-          "imageUrl": "/uploads/products/classic-basic-towel-variant-6-0e6e256d-71b7-4be6-b1ed-5aaf264e6e02.webp"
+          "imageUrl": null
         }
       ],
-      "created_at": "2026-09-29T10:07:00.000Z"
+      "created_at": "2026-09-29T10:07:00.000Z",
+      "gsm": "430"
     },
     {
       "id": "demo-kitchen-terry-towel",
@@ -347,31 +332,32 @@
       "material": "Blended cotton",
       "size": "35 x 65 cm",
       "shape": "Rectangle",
-      "weight": "360 GSM",
+      "weight": "",
       "color": "#7a4b2b",
       "note": "Durable kitchen towel with absorbent terry texture for counters, service stations, and everyday home use. The blend keeps it practical and easy to maintain.",
-      "image_url": "/uploads/products/classic-basic-towel-variant-4-baf482cd-4b85-4e26-b704-36e19e6ff52c.webp",
+      "image_url": null,
       "variants": [
         {
           "id": "demo-kitchen-terry-coffee",
           "name": "Coffee",
           "color": "#7a4b2b",
-          "imageUrl": "/uploads/products/classic-basic-towel-variant-4-baf482cd-4b85-4e26-b704-36e19e6ff52c.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-kitchen-terry-yellow",
           "name": "Yellow",
           "color": "#f0c836",
-          "imageUrl": "/uploads/products/classic-basic-towel-variant-1-bd461dac-0229-4678-b91e-1b8be9f0cad5.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-kitchen-terry-burgundy",
           "name": "Burgundy",
           "color": "#8a1538",
-          "imageUrl": "/uploads/products/classic-basic-towel-variant-5-b934f563-ac0d-48d3-8f04-caee38c76fe0.webp"
+          "imageUrl": null
         }
       ],
-      "created_at": "2026-09-29T10:05:00.000Z"
+      "created_at": "2026-09-29T10:05:00.000Z",
+      "gsm": "360"
     },
     {
       "id": "demo-round-beach-towel",
@@ -382,31 +368,32 @@
       "material": "Blended cotton",
       "size": "150 cm",
       "shape": "Circle",
-      "weight": "420 GSM",
+      "weight": "",
       "color": "#2e74b5",
       "note": "Circular beach towel with a relaxed terry surface and wide visual footprint. Ideal for resort displays, summer campaigns, and lounge-style setups.",
-      "image_url": "/uploads/products/beach-towel-variant-5-941a4d59-0bb0-4bdc-9bce-5ef5e02afb4b.webp",
+      "image_url": null,
       "variants": [
         {
           "id": "demo-round-beach-ocean",
           "name": "Ocean",
           "color": "#2e74b5",
-          "imageUrl": "/uploads/products/beach-towel-variant-5-941a4d59-0bb0-4bdc-9bce-5ef5e02afb4b.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-round-beach-reef",
           "name": "Reef",
           "color": "#34b9bd",
-          "imageUrl": "/uploads/products/beach-towel-variant-6-d609806a-1f6c-4b7b-af55-a11052b5e287.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-round-beach-sand",
           "name": "Sand",
           "color": "#d7ad47",
-          "imageUrl": "/uploads/products/beach-towel-variant-4-267d05e3-412f-4a9f-9f2d-fb3893f1f1bd.webp"
+          "imageUrl": null
         }
       ],
-      "created_at": "2026-09-29T10:02:00.000Z"
+      "created_at": "2026-09-29T10:02:00.000Z",
+      "gsm": "420"
     },
     {
       "id": "demo-cabana-stripe-beach-towel",
@@ -417,31 +404,32 @@
       "material": "Cotton 100%",
       "size": "100 x 180 cm",
       "shape": "Rectangle",
-      "weight": "600 GSM",
+      "weight": "",
       "color": "#1e4f9a",
       "note": "A bold beach towel for pool clubs and summer retail displays. Wide stripe-inspired colorways help the product read clearly in stacks, shelves, and online previews.",
-      "image_url": "/uploads/products/beach-towel-variant-3-ea6632a4-6845-48dc-84ca-ad0cedd591e9.webp",
+      "image_url": null,
       "variants": [
         {
           "id": "demo-cabana-stripe-blue",
           "name": "Blue",
           "color": "#1e4f9a",
-          "imageUrl": "/uploads/products/beach-towel-variant-3-ea6632a4-6845-48dc-84ca-ad0cedd591e9.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-cabana-stripe-orange",
           "name": "Orange",
           "color": "#f47a28",
-          "imageUrl": "/uploads/products/beach-towel-variant-1-7e478efb-ef57-4976-b437-441ebed39459.webp"
+          "imageUrl": null
         },
         {
           "id": "demo-cabana-stripe-white",
           "name": "White",
           "color": "#f7f0de",
-          "imageUrl": "/uploads/products/beach-towel-variant-4-267d05e3-412f-4a9f-9f2d-fb3893f1f1bd.webp"
+          "imageUrl": null
         }
       ],
-      "created_at": "2026-09-29T10:01:00.000Z"
+      "created_at": "2026-09-29T10:01:00.000Z",
+      "gsm": "600"
     }
   ]
 }

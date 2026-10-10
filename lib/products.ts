@@ -119,16 +119,15 @@ export function normalizeProductSubcategory(category?: string | null, subcategor
 
 export function getProductCategoryFilters(products: Pick<ProductVariation, "category">[]) {
   const productCategorySet = new Set(products.map((product) => normalizeProductCategory(product.category)));
+  const configuredProductCategories = [
+    primaryProductCategory,
+    ...productCategories.filter((category) => category !== primaryProductCategory)
+  ];
   const customProductCategories = [...productCategorySet].filter(
     (category) => category !== primaryProductCategory && !productCategories.includes(category)
   );
 
-  return [
-    "All",
-    primaryProductCategory,
-    ...productCategories.filter((category) => category !== primaryProductCategory),
-    ...customProductCategories
-  ];
+  return ["All", ...configuredProductCategories, ...customProductCategories];
 }
 
 export const allProductSubcategoryFilter = "All labels";
@@ -179,6 +178,7 @@ export type ProductVariation = {
   size: string;
   shape: string;
   weight: string;
+  gsm: string;
   note: string;
   color: string;
   imageUrl: string | null;
@@ -197,6 +197,7 @@ export type ProductRow = {
   size: string | null;
   shape: string | null;
   weight: string | null;
+  gsm?: string | null;
   note: string | null;
   color: string | null;
   image_url?: string | null;
@@ -212,7 +213,8 @@ export const fallbackProducts: ProductVariation[] = [
     material: "Cotton 100%",
     size: "70 x 140 cm",
     shape: "Rectangle",
-    weight: "520 GSM",
+    weight: "",
+    gsm: "520",
     note: "Daily bath towel with a deep border weave.",
     color: "#d7ad47",
     imageUrl: null,
@@ -232,7 +234,8 @@ export const fallbackProducts: ProductVariation[] = [
     material: "Cotton 100%",
     size: "50 x 90 cm",
     shape: "Compact",
-    weight: "480 GSM",
+    weight: "",
+    gsm: "480",
     note: "Quick-dry hand towel for stacked guest sets.",
     color: "#efe6d1",
     imageUrl: null,
@@ -252,7 +255,8 @@ export const fallbackProducts: ProductVariation[] = [
     material: "Blended cotton",
     size: "150 cm",
     shape: "Circle",
-    weight: "420 GSM",
+    weight: "",
+    gsm: "420",
     note: "Circular beach towel with a soft terry face.",
     color: "#6f7350",
     imageUrl: null,
@@ -272,7 +276,8 @@ export const fallbackProducts: ProductVariation[] = [
     material: "Cotton 100%",
     size: "100 x 180 cm",
     shape: "Oversized",
-    weight: "620 GSM",
+    weight: "",
+    gsm: "620",
     note: "Large spa profile with extra wrap length.",
     color: "#c49a3a",
     imageUrl: null,
@@ -292,7 +297,8 @@ export const fallbackProducts: ProductVariation[] = [
     material: "Blended cotton",
     size: "30 x 50 cm",
     shape: "Stack",
-    weight: "450 GSM",
+    weight: "",
+    gsm: "450",
     note: "Small folded towels for hospitality counters.",
     color: "#222222",
     imageUrl: null,
@@ -312,7 +318,8 @@ export const fallbackProducts: ProductVariation[] = [
     material: "Cotton 100%",
     size: "75 x 75 cm",
     shape: "Hooded",
-    weight: "500 GSM",
+    weight: "",
+    gsm: "500",
     note: "Square towel with a corner hood silhouette.",
     color: "#d7ad47",
     imageUrl: null,
@@ -382,10 +389,46 @@ export function getShapeDisplay(shape: string) {
   };
 }
 
+export function normalizeProductMeasurements(weight?: string | null, gsm?: string | null) {
+  const normalizedWeight = weight?.replace(/\s+/g, " ").trim() ?? "";
+  const normalizedGsm = gsm?.replace(/\s+/g, " ").trim() ?? "";
+
+  if (normalizedGsm) {
+    return { weight: normalizedWeight, gsm: normalizedGsm.replace(/\s*gsm$/i, "") };
+  }
+
+  const combinedMeasurement = normalizedWeight.match(/^(.+?)\s*\/\s*([\d.]+)\s*gsm$/i);
+
+  if (combinedMeasurement) {
+    return { weight: combinedMeasurement[1].trim(), gsm: combinedMeasurement[2] };
+  }
+
+  const legacyGsm = normalizedWeight.match(/^([\d.]+)\s*gsm$/i);
+
+  if (legacyGsm) {
+    return { weight: "", gsm: legacyGsm[1] };
+  }
+
+  return { weight: normalizedWeight, gsm: "" };
+}
+
+export function formatProductWeight(weight: string) {
+  const value = weight.trim();
+
+  return /^\d+(?:\.\d+)?$/.test(value) ? `${value} g` : value;
+}
+
+export function formatProductGsm(gsm: string) {
+  const value = gsm.trim();
+
+  return value ? `${value.replace(/\s*gsm$/i, "")} GSM` : "";
+}
+
 export function mapProductRow(row: ProductRow): ProductVariation {
   const display = getShapeDisplay(row.shape ?? "");
   const variants = normalizeProductVariants(row);
   const primaryVariant = variants[0];
+  const measurements = normalizeProductMeasurements(row.weight, row.gsm);
 
   return {
     id: row.id,
@@ -395,7 +438,8 @@ export function mapProductRow(row: ProductRow): ProductVariation {
     material: row.material || "Cotton 100%",
     size: row.size || "Custom size",
     shape: display.shape,
-    weight: row.weight || "Custom GSM",
+    weight: formatProductWeight(measurements.weight),
+    gsm: formatProductGsm(measurements.gsm),
     note: row.note || "MMTextile towel variation.",
     color: primaryVariant.color,
     imageUrl: primaryVariant.imageUrl,

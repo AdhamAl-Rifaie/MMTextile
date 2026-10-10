@@ -1,23 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --background: #050505;
-  --surface: #101010;
-  --surface-soft: #181512;
+  --background: #f4f6f8;
+  --surface: #ffffff;
+  --surface-soft: #eef2f6;
+  --navy: #16436f;
   --gold: #d7ad47;
   --gold-strong: #f1c85b;
   --gold-muted: #8f7334;
-  --text: #f7f0de;
-  --muted: #b8aa8a;
+  --text: #16436f;
+  --muted: #526984;
   --danger: #ff8178;
-  --success: #9de7b0;
-  --border: rgba(215, 173, 71, 0.28);
-  --shadow: rgba(0, 0, 0, 0.5);
+  --success: #217a46;
+  --border: rgba(22, 67, 111, 0.18);
+  --shadow: rgba(22, 67, 111, 0.16);
 }
 
 * {
   box-sizing: border-box;
-  scrollbar-color: var(--gold-muted) #080808;
+  scrollbar-color: var(--navy) #e6ebf0;
   scrollbar-width: thin;
 }
 
@@ -27,21 +28,21 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: #080808;
+  background: #e6ebf0;
 }
 
 *::-webkit-scrollbar-thumb {
-  border: 2px solid #080808;
+  border: 2px solid #e6ebf0;
   border-radius: 999px;
-  background: linear-gradient(180deg, var(--gold-strong), var(--gold-muted));
+  background: linear-gradient(180deg, var(--navy), #37506f);
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-strong);
+  background: var(--navy);
 }
 
 .themed-scrollbar {
-  scrollbar-color: var(--gold-strong) rgba(241, 200, 91, 0.12);
+  scrollbar-color: var(--navy) rgba(22, 67, 111, 0.1);
   scrollbar-width: thin;
 }
 
@@ -50,14 +51,14 @@
 }
 
 .themed-scrollbar::-webkit-scrollbar-track {
-  border: 1px solid rgba(241, 200, 91, 0.2);
-  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(22, 67, 111, 0.12);
+  background: rgba(255, 255, 255, 0.58);
 }
 
 .themed-scrollbar::-webkit-scrollbar-thumb {
-  border: 2px solid #080808;
+  border: 2px solid #eef2f6;
   border-radius: 999px;
-  background: var(--gold-strong);
+  background: var(--navy);
 }
 
 html,
@@ -71,8 +72,8 @@ body {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at top left, rgba(215, 173, 71, 0.16), transparent 32rem),
-    linear-gradient(135deg, #050505 0%, #0d0a05 48%, #141007 100%);
+    radial-gradient(circle at top left, rgba(22, 67, 111, 0.08), transparent 32rem),
+    linear-gradient(135deg, #f7f8fa 0%, #f1f4f7 48%, #e9eef3 100%);
   color: var(--text);
   font-family:
     var(--font-display),
@@ -86,6 +87,23 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+input,
+select,
+textarea {
+  color: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #71869c;
+  opacity: 1;
+}
+
+select option {
+  background: var(--surface);
+  color: var(--navy);
 }
 
 button {
@@ -149,7 +167,7 @@ h1 {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: rgba(16, 16, 16, 0.9);
+  background: rgba(255, 255, 255, 0.78);
   box-shadow: 0 24px 60px var(--shadow);
   padding: 28px;
 }
@@ -182,7 +200,8 @@ h1 {
   border-radius: 999px;
   padding: 8px 10px;
   overflow: hidden;
-  color: var(--gold-strong);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--navy);
   font-size: 0.78rem;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -199,7 +218,7 @@ h1 {
 }
 
 .field label {
-  color: var(--gold-strong);
+  color: var(--navy);
   font-size: 0.88rem;
   font-weight: 700;
 }
@@ -209,10 +228,11 @@ h1 {
 .field textarea {
   width: 100%;
   min-height: 48px;
-  border: 1px solid rgba(247, 240, 222, 0.14);
+  border: 1px solid rgba(22, 67, 111, 0.22);
   border-radius: 6px;
-  background: #080808;
+  background: rgba(255, 255, 255, 0.88);
   color: var(--text);
+  caret-color: var(--navy);
   padding: 12px 14px;
   outline: none;
   transition:
@@ -228,8 +248,8 @@ h1 {
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(215, 173, 71, 0.16);
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(22, 67, 111, 0.12);
 }
 
 .primary-button,
@@ -244,14 +264,14 @@ h1 {
 .primary-button {
   width: 100%;
   margin-top: 18px;
-  background: linear-gradient(135deg, var(--gold-strong), var(--gold));
-  color: #100d05;
+  background: var(--navy);
+  color: white;
 }
 
 .secondary-button {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.65);
   border-color: var(--border);
-  color: var(--gold-strong);
+  color: var(--navy);
 }
 
 .status {
@@ -278,10 +298,10 @@ h1 {
 
 .setup-list code {
   display: block;
-  border: 1px solid rgba(247, 240, 222, 0.14);
+  border: 1px solid rgba(22, 67, 111, 0.18);
   border-radius: 6px;
-  background: #080808;
-  color: var(--gold-strong);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--navy);
   padding: 12px 14px;
   overflow-wrap: anywhere;
 }

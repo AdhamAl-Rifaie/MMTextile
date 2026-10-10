@@ -5,6 +5,12 @@ import { useRouter } from "next/navigation";
 import { deleteProductById } from "@/app/actions";
 import { ProductForm } from "@/components/product-form";
 import type { LocalProductRow } from "@/lib/local-db";
+import {
+  formatProductGsm,
+  formatProductWeight,
+  primaryProductCategory,
+  productCategoryGroups
+} from "@/lib/products";
 
 export function ProductAdminWorkspace({ products }: { products: LocalProductRow[] }) {
   const [selectedProduct, setSelectedProduct] = useState<LocalProductRow | null>(null);
@@ -14,6 +20,37 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
   const [isDeleting, startDeleteTransition] = useTransition();
   const router = useRouter();
   const editorRef = useRef<HTMLDivElement>(null);
+  const configuredCategoryNames = new Set<string>(productCategoryGroups.map((group) => group.name));
+  const configuredTaxonomy = productCategoryGroups.map((group) => {
+    const categoryProducts = products.filter((product) => product.category === group.name);
+    const productSubcategories = categoryProducts.map((product) => product.subcategory).filter(Boolean) as string[];
+    const subcategories = [...new Set([...group.subcategories, ...productSubcategories])];
+    const imageCount = categoryProducts.reduce(
+      (total, product) => total + (product.image_url ? 1 : 0) + (product.variants?.filter((variant) => variant.imageUrl).length ?? 0),
+      0
+    );
+
+    return { name: group.name, subcategories, productCount: categoryProducts.length, imageCount };
+  });
+  const customTaxonomy = [...new Set(products
+    .map((product) => product.category)
+    .filter((category): category is string => Boolean(category) && !configuredCategoryNames.has(category as string)))]
+    .map((category) => {
+      const categoryProducts = products.filter((product) => product.category === category);
+      const subcategories = [...new Set(categoryProducts.map((product) => product.subcategory).filter(Boolean) as string[])];
+      const imageCount = categoryProducts.reduce(
+        (total, product) => total + (product.image_url ? 1 : 0) + (product.variants?.filter((variant) => variant.imageUrl).length ?? 0),
+        0
+      );
+
+      return { name: category, subcategories, productCount: categoryProducts.length, imageCount };
+    });
+  const taxonomyRows = [...configuredTaxonomy, ...customTaxonomy];
+  const sortedProducts = [...products].sort((first, second) => (
+    (first.category ?? primaryProductCategory).localeCompare(second.category ?? primaryProductCategory)
+    || (first.subcategory ?? "").localeCompare(second.subcategory ?? "")
+    || first.name.localeCompare(second.name)
+  ));
 
   const editProduct = (product: LocalProductRow) => {
     setSelectedProduct(product);
@@ -66,7 +103,87 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
       <section className="form-card">
         <div className="card-header">
           <div>
-            <h2 className="card-title">Products needed</h2>
+            <p className="m-0 text-[0.68rem] font-black uppercase text-[#60738d]">Catalog structure</p>
+            <h2 className="card-title mt-1">Categories and subcategories</h2>
+            <p className="card-subtitle">The complete taxonomy stays available while product photography is added over time.</p>
+          </div>
+          <span className="border border-[#16436f]/20 bg-[#eef2f6] px-3 py-2 text-xs font-black uppercase text-[#16436f]">
+            {taxonomyRows.length} categories
+          </span>
+        </div>
+
+        <div className="grid border border-[#16436f]/14 md:hidden">
+          {taxonomyRows.map((row) => (
+            <article className="grid gap-3 border-b border-[#16436f]/10 p-4 last:border-b-0" key={row.name}>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="m-0 text-base font-black uppercase leading-tight text-[#16436f]">{row.name}</h3>
+                  <p className="m-0 mt-1 text-[0.68rem] font-black uppercase text-[#60738d]">
+                    {row.productCount} product{row.productCount === 1 ? "" : "s"}
+                  </p>
+                </div>
+                <span className={`shrink-0 text-right text-[0.65rem] font-black uppercase ${row.name === primaryProductCategory ? "text-[#217a46]" : "text-[#60738d]"}`}>
+                  {row.imageCount ? `${row.imageCount} images` : "Ready for upload"}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {row.subcategories.length ? row.subcategories.map((subcategory) => (
+                  <span className="border border-[#16436f]/16 bg-white px-2.5 py-1 text-[0.65rem] font-bold uppercase text-[#4d6d91]" key={subcategory}>
+                    {subcategory}
+                  </span>
+                )) : (
+                  <span className="text-xs font-medium text-[#60738d]">No configured subcategories</span>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="hidden overflow-x-auto border border-[#16436f]/14 md:block">
+          <table className="w-full min-w-[760px] border-collapse text-left">
+            <thead className="bg-[#e9eef3] text-[0.68rem] font-black uppercase text-[#16436f]">
+              <tr>
+                <th className="border-b border-[#16436f]/16 px-4 py-3">Category</th>
+                <th className="border-b border-[#16436f]/16 px-4 py-3">Subcategories</th>
+                <th className="border-b border-[#16436f]/16 px-4 py-3 text-center">Products</th>
+                <th className="border-b border-[#16436f]/16 px-4 py-3">Image status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {taxonomyRows.map((row) => (
+                <tr className="border-b border-[#16436f]/10 last:border-b-0" key={row.name}>
+                  <td className="px-4 py-4 align-top">
+                    <span className="font-black uppercase text-[#16436f]">{row.name}</span>
+                  </td>
+                  <td className="px-4 py-4">
+                    <div className="flex max-w-3xl flex-wrap gap-2">
+                      {row.subcategories.length ? row.subcategories.map((subcategory) => (
+                        <span className="border border-[#16436f]/16 bg-white px-2.5 py-1 text-[0.65rem] font-bold uppercase text-[#4d6d91]" key={subcategory}>
+                          {subcategory}
+                        </span>
+                      )) : (
+                        <span className="text-xs font-medium text-[#60738d]">No configured subcategories</span>
+                      )}
+                    </div>
+                  </td>
+                  <td className="px-4 py-4 text-center text-lg font-black text-[#16436f]">{row.productCount}</td>
+                  <td className="px-4 py-4 text-xs font-black uppercase">
+                    <span className={row.name === primaryProductCategory ? "text-[#217a46]" : "text-[#60738d]"}>
+                      {row.imageCount ? `${row.imageCount} images` : "Ready for upload"}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section className="form-card">
+        <div className="card-header">
+          <div>
+            <h2 className="card-title">Product inventory</h2>
             <p className="card-subtitle">
               {products.length} product{products.length === 1 ? "" : "s"} currently in the local database.
             </p>
@@ -76,19 +193,19 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
         {products.length ? (
           <>
           <div className="grid gap-3 md:hidden">
-            {products.map((product) => (
-              <article className="grid gap-3 border border-[#f1c85b]/22 bg-black/20 p-3" key={product.id}>
+            {sortedProducts.map((product) => (
+              <article className="grid gap-3 border border-[#16436f]/16 bg-[#eef2f6]/72 p-3" key={product.id}>
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h3 className="m-0 break-words text-lg font-black uppercase leading-none text-[#f1c85b]">
+                    <h3 className="m-0 break-words text-lg font-black uppercase leading-none text-[#16436f]">
                       {product.name}
                     </h3>
-                    <p className="m-0 mt-2 text-xs font-bold uppercase text-[#f7f0de]">
+                    <p className="m-0 mt-2 text-xs font-bold uppercase text-[#16436f]">
                       {product.category ?? "Home Towels"}
-                      {product.subcategory ? <span className="text-[#b8aa8a]"> / {product.subcategory}</span> : null}
+                      {product.subcategory ? <span className="text-[#60738d]"> / {product.subcategory}</span> : null}
                     </p>
                   </div>
-                  <p className="m-0 shrink-0 border border-[#f1c85b]/35 px-2 py-1 text-[0.62rem] font-black uppercase text-[#f1c85b]">
+                  <p className="m-0 shrink-0 border border-[#16436f]/25 px-2 py-1 text-[0.62rem] font-black uppercase text-[#16436f]">
                     {product.variants?.length ?? 0} colors
                   </p>
                 </div>
@@ -96,7 +213,7 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
                 <div className="flex flex-wrap gap-2">
                   {product.variants?.map((variant) => (
                     <span
-                      className="h-9 w-9 rounded-full border border-[#f1c85b]/60 bg-cover bg-center"
+                      className="h-9 w-9 border border-[#16436f]/25 bg-cover bg-center"
                       key={variant.id}
                       style={{
                         backgroundColor: variant.color,
@@ -107,20 +224,28 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
                   ))}
                 </div>
 
-                <div className="grid grid-cols-2 border-y border-white/10 text-xs">
-                  <div className="border-r border-white/10 px-2 py-2">
-                    <span className="block font-black uppercase text-[#b8aa8a]">Material</span>
-                    <span className="mt-1 block font-bold text-[#f7f0de]">{product.material ?? "Cotton 100%"}</span>
+                <div className="grid grid-cols-2 border-y border-[#16436f]/10 text-xs">
+                  <div className="border-b border-r border-[#16436f]/10 px-2 py-2">
+                    <span className="block font-black uppercase text-[#60738d]">Material</span>
+                    <span className="mt-1 block font-bold text-[#16436f]">{product.material ?? "Cotton 100%"}</span>
+                  </div>
+                  <div className="border-b border-[#16436f]/10 px-2 py-2">
+                    <span className="block font-black uppercase text-[#60738d]">Size</span>
+                    <span className="mt-1 block font-bold text-[#16436f]">{product.size ?? "Custom size"}</span>
+                  </div>
+                  <div className="border-r border-[#16436f]/10 px-2 py-2">
+                    <span className="block font-black uppercase text-[#60738d]">Weight</span>
+                    <span className="mt-1 block font-bold text-[#16436f]">{formatProductWeight(product.weight ?? "") || "Not set"}</span>
                   </div>
                   <div className="px-2 py-2">
-                    <span className="block font-black uppercase text-[#b8aa8a]">Size</span>
-                    <span className="mt-1 block font-bold text-[#f7f0de]">{product.size ?? "Custom size"}</span>
+                    <span className="block font-black uppercase text-[#60738d]">GSM</span>
+                    <span className="mt-1 block font-bold text-[#16436f]">{formatProductGsm(product.gsm ?? "") || "Not set"}</span>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
                   <button
-                    className="min-h-11 border border-[#f1c85b]/55 px-3 text-[0.72rem] font-black uppercase text-[#f1c85b] transition hover:bg-[#f1c85b] hover:text-black"
+                    className="min-h-11 border border-[#16436f]/35 px-3 text-[0.72rem] font-black uppercase text-[#16436f] transition hover:bg-[#16436f] hover:text-white"
                     onClick={() => editProduct(product)}
                     type="button"
                   >
@@ -128,7 +253,7 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
                   </button>
 
                   <button
-                    className="min-h-11 border border-[#ff8178]/55 px-3 text-[0.72rem] font-black uppercase text-[#ff8178] transition hover:bg-[#ff8178] hover:text-black disabled:cursor-not-allowed disabled:opacity-55"
+                    className="min-h-11 border border-[#c84c45]/45 px-3 text-[0.72rem] font-black uppercase text-[#a83b35] transition hover:bg-[#c84c45] hover:text-white disabled:cursor-not-allowed disabled:opacity-55"
                     disabled={isDeleting && deletingProductId === product.id}
                     onClick={() => {
                       setDeleteError(null);
@@ -144,23 +269,25 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
           </div>
 
           <div className="hidden overflow-x-auto md:block">
-            <table className="w-full min-w-[760px] border-collapse text-left">
-              <thead className="border-b border-[#f1c85b]/35 text-[0.72rem] font-black uppercase text-[#f1c85b]">
+            <table className="w-full min-w-[940px] border-collapse text-left">
+              <thead className="border-b border-[#16436f]/25 bg-[#e9eef3] text-[0.72rem] font-black uppercase text-[#16436f]">
                 <tr>
                   <th className="py-3 pr-4">Product</th>
                   <th className="py-3 pr-4">Colors</th>
                   <th className="py-3 pr-4">Category</th>
                   <th className="py-3 pr-4">Material</th>
                   <th className="py-3 pr-4">Size</th>
+                  <th className="py-3 pr-4">Weight</th>
+                  <th className="py-3 pr-4">GSM</th>
                   <th className="py-3 text-right">Actions</th>
                 </tr>
               </thead>
 
               <tbody>
-                {products.map((product) => (
-                  <tr className="border-b border-[#f1c85b]/18 align-middle" key={product.id}>
+                {sortedProducts.map((product) => (
+                  <tr className="border-b border-[#16436f]/12 align-middle transition hover:bg-[#eef2f6]/75" key={product.id}>
                     <td className="py-4 pr-4">
-                      <p className="m-0 text-base font-black uppercase text-[#f1c85b]">
+                      <p className="m-0 text-base font-black uppercase text-[#16436f]">
                         {product.name}
                       </p>
                     </td>
@@ -168,7 +295,7 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
                       <div className="flex max-w-[320px] flex-wrap gap-2">
                         {product.variants?.map((variant) => (
                           <span
-                            className="h-8 w-8 rounded-full border border-[#f1c85b]/60 bg-cover bg-center"
+                            className="h-8 w-8 border border-[#16436f]/25 bg-cover bg-center"
                             key={variant.id}
                             style={{
                               backgroundColor: variant.color,
@@ -179,22 +306,28 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
                         ))}
                       </div>
                     </td>
-                    <td className="py-4 pr-4 text-sm font-bold text-[#f7f0de]">
+                    <td className="py-4 pr-4 text-sm font-bold text-[#16436f]">
                       <span className="block">{product.category ?? "Home Towels"}</span>
                       {product.subcategory ? (
-                        <span className="mt-1 block text-[0.68rem] uppercase text-[#b8aa8a]">{product.subcategory}</span>
+                        <span className="mt-1 block text-[0.68rem] uppercase text-[#60738d]">{product.subcategory}</span>
                       ) : null}
                     </td>
-                    <td className="py-4 pr-4 text-sm font-bold text-[#f7f0de]">
+                    <td className="py-4 pr-4 text-sm font-bold text-[#16436f]">
                       {product.material ?? "Cotton 100%"}
                     </td>
-                    <td className="py-4 pr-4 text-sm font-bold text-[#f7f0de]">
+                    <td className="py-4 pr-4 text-sm font-bold text-[#16436f]">
                       {product.size ?? "Custom size"}
+                    </td>
+                    <td className="py-4 pr-4 text-sm font-bold text-[#16436f]">
+                      {formatProductWeight(product.weight ?? "") || "Not set"}
+                    </td>
+                    <td className="py-4 pr-4 text-sm font-bold text-[#16436f]">
+                      {formatProductGsm(product.gsm ?? "") || "Not set"}
                     </td>
                     <td className="py-4 text-right">
                       <div className="ml-auto flex justify-end gap-2">
                         <button
-                          className="rounded-full border border-[#f1c85b]/55 px-4 py-2 text-[0.72rem] font-black uppercase text-[#f1c85b] transition hover:bg-[#f1c85b] hover:text-black"
+                          className="border border-[#16436f]/35 px-4 py-2 text-[0.72rem] font-black uppercase text-[#16436f] transition hover:bg-[#16436f] hover:text-white"
                           onClick={() => editProduct(product)}
                           type="button"
                         >
@@ -202,7 +335,7 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
                         </button>
 
                         <button
-                          className="rounded-full border border-[#ff8178]/55 px-4 py-2 text-[0.72rem] font-black uppercase text-[#ff8178] transition hover:bg-[#ff8178] hover:text-black disabled:cursor-not-allowed disabled:opacity-55"
+                          className="border border-[#c84c45]/45 px-4 py-2 text-[0.72rem] font-black uppercase text-[#a83b35] transition hover:bg-[#c84c45] hover:text-white disabled:cursor-not-allowed disabled:opacity-55"
                           disabled={isDeleting && deletingProductId === product.id}
                           onClick={() => {
                             setDeleteError(null);
@@ -237,17 +370,17 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
       {pendingDeleteProduct ? (
         <div
           aria-modal="true"
-          className="fixed inset-0 z-50 grid place-items-center bg-black/72 px-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 grid place-items-center bg-[#16436f]/48 px-4 backdrop-blur-sm"
           role="dialog"
         >
-          <div className="w-full max-w-[460px] border border-[#f1c85b]/40 bg-[#080705] p-6 text-[#f7f0de] shadow-[0_40px_120px_rgba(0,0,0,0.68)]">
-            <p className="m-0 text-[0.72rem] font-black uppercase text-[#f1c85b]">
+          <div className="w-full max-w-[460px] border border-[#16436f]/22 bg-[#f7f8fa] p-6 text-[#16436f] shadow-[0_40px_120px_rgba(22,67,111,0.28)]">
+            <p className="m-0 text-[0.72rem] font-black uppercase text-[#60738d]">
               Confirm delete
             </p>
-            <h3 className="m-0 mt-3 text-3xl font-black uppercase leading-none text-[#f1c85b]">
+            <h3 className="m-0 mt-3 text-3xl font-black uppercase leading-none text-[#16436f]">
               {pendingDeleteProduct.name}
             </h3>
-            <p className="m-0 mt-4 text-sm leading-6 text-[#d8c996]">
+            <p className="m-0 mt-4 text-sm leading-6 text-[#4d6d91]">
               This will permanently remove the product and its color variants from the local database.
             </p>
             {deleteError ? (
@@ -266,7 +399,7 @@ export function ProductAdminWorkspace({ products }: { products: LocalProductRow[
                 Cancel
               </button>
               <button
-                className="min-h-12 rounded-[6px] border border-[#ff8178]/65 bg-[#ff8178] px-4 font-black uppercase text-black disabled:cursor-not-allowed disabled:opacity-60"
+                className="min-h-12 rounded-[6px] border border-[#c84c45] bg-[#c84c45] px-4 font-black uppercase text-white disabled:cursor-not-allowed disabled:opacity-60"
                 disabled={isDeleting && deletingProductId === pendingDeleteProduct.id}
                 onClick={deletePendingProduct}
                 type="button"

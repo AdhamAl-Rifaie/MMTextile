@@ -7,7 +7,7 @@ const initialState: FormState = {
   message: "Use the local admin account to continue."
 };
 
-export function LoginForm({ adminEmail }: { adminEmail: string }) {
+export function LoginForm() {
   const [state, action, isPending] = useActionState(loginAdmin, initialState);
 
   return (
@@ -22,7 +22,7 @@ export function LoginForm({ adminEmail }: { adminEmail: string }) {
       <div className="field-stack">
         <div className="field">
           <label htmlFor="email">Email</label>
-          <input id="email" name="email" type="email" autoComplete="username" defaultValue={adminEmail} required />
+          <input id="email" name="email" type="email" autoComplete="username" required />
         </div>
 
         <div className="field">

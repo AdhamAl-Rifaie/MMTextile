@@ -2,89 +2,108 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { pageEntranceStart } from "@/lib/intro-timing";
 
-const headlineWords = ["Royal", "Border", "Bath", "Towel"];
-const detailItems = ["Egyptian cotton", "Refined border weave", "Hospitality finish"];
+const ease = [0.16, 1, 0.3, 1] as const;
+const heroEntranceStart = pageEntranceStart + 0.3;
 
 export function OpeningHero() {
   return (
     <section
-      className="relative left-1/2 min-h-[520px] w-[100dvw] max-w-[100dvw] -translate-x-1/2 overflow-hidden border-y border-[#f1c85b]/45 bg-black md:min-h-[680px]"
-      aria-label="Royal border bath towel"
+      className="relative left-1/2 grid w-[100dvw] max-w-[100dvw] -translate-x-1/2 overflow-hidden border-y border-[#c4ab81]/50 bg-[#102d4b] text-[#f7f2e9] lg:min-h-[640px] lg:grid-cols-[minmax(0,0.43fr)_minmax(0,0.57fr)]"
+      aria-labelledby="opening-hero-heading"
     >
-      <Image
-        src="/uploads/products/royal-border-bath-towel-variant-2-c621a342-df77-40dd-bcee-e74d0c120605.webp"
-        alt="Royal border bath towel in MM Textile collection"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
-      />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.88)_0%,rgba(0,0,0,0.58)_36%,rgba(0,0,0,0.12)_70%),radial-gradient(circle_at_72%_28%,rgba(241,200,91,0.18),transparent_30rem)]" />
-      <div className="absolute inset-x-0 top-0 h-1 bg-[#f1c85b]" />
-      <div className="absolute inset-x-0 bottom-0 h-1 bg-[#f1c85b]" />
-
-      <div className="relative z-10 mx-auto grid min-h-[520px] w-full max-w-[1840px] content-between px-4 py-6 sm:px-6 md:min-h-[680px] md:py-8">
-        <div className="flex flex-wrap items-center justify-between gap-3 text-[#f1c85b]">
-          <motion.p
-            className="m-0 text-[0.72rem] font-black uppercase tracking-normal sm:text-[0.82rem]"
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 4.65, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          >
-            Signature woven collection
-          </motion.p>
-          <motion.p
-            className="m-0 border border-[#f1c85b]/55 bg-black/45 px-3 py-2 text-[0.68rem] font-black uppercase tracking-normal backdrop-blur"
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 4.82, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          >
-            El Mahalla El Kubra
-          </motion.p>
-        </div>
-
-        <div className="grid max-w-[980px] gap-5 py-10 md:py-16">
-          <p className="m-0 max-w-[34rem] text-sm font-black uppercase leading-6 text-[#f7f0de]/80 sm:text-base">
-            A bold towel profile with a polished border, dense handfeel, and a warm hotel-ready finish.
+      <div className="relative z-10 order-2 flex min-w-0 flex-col justify-between gap-14 px-6 py-9 sm:px-10 sm:py-12 lg:order-1 lg:px-[clamp(2.5rem,5vw,7rem)] lg:py-14">
+        <motion.div
+          className="flex items-center gap-4 text-[#d4b78a]"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: heroEntranceStart + 0.05, duration: 0.65, ease }}
+        >
+          <span className="h-px w-10 bg-current" aria-hidden="true" />
+          <p className="m-0 [font-family:var(--font-brand)] text-sm font-extrabold uppercase tracking-[0.2em] sm:text-base">
+            The textile edit / 01
           </p>
+        </motion.div>
 
-          <h2 className="m-0 grid gap-0 overflow-hidden text-[clamp(3.7rem,12vw,12.5rem)] font-black uppercase leading-[0.78] tracking-normal text-[#f1c85b] [font-family:var(--font-display)] [text-shadow:0_0_34px_rgba(241,200,91,0.28)]">
-            {headlineWords.map((word, index) => (
-              <span className="block overflow-hidden" key={word}>
-                <motion.span
-                  className="block"
-                  initial={{ y: "112%", rotateX: -28 }}
-                  animate={{ y: "0%", rotateX: 0 }}
-                  transition={{
-                    delay: 4.9 + index * 0.16,
-                    duration: 0.9,
-                    ease: [0.16, 1, 0.3, 1]
-                  }}
-                >
-                  {word}
-                </motion.span>
-              </span>
-            ))}
+        <div className="max-w-[38rem]">
+          <h2
+            id="opening-hero-heading"
+            className="m-0 [font-family:var(--font-editorial)] text-[clamp(3.3rem,7vw,8.5rem)] font-medium leading-[0.77] tracking-[-0.055em] text-[#f7f2e9]"
+          >
+            <span className="block overflow-hidden pb-[0.15em]">
+              <motion.span
+                className="block"
+                initial={{ y: "110%" }}
+                animate={{ y: "0%" }}
+                transition={{ delay: heroEntranceStart + 0.14, duration: 0.8, ease }}
+              >
+                The beauty of
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden pb-[0.17em]">
+              <motion.em
+                className="block font-normal text-[#d4b78a]"
+                initial={{ y: "110%" }}
+                animate={{ y: "0%" }}
+                transition={{ delay: heroEntranceStart + 0.3, duration: 0.8, ease }}
+              >
+                everyday rituals.
+              </motion.em>
+            </span>
           </h2>
+          <motion.p
+            className="m-0 mt-4 max-w-[29rem] [font-family:var(--font-display)] text-sm leading-7 text-[#e0e8ed]/82 sm:text-base"
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: heroEntranceStart + 0.4, duration: 0.7, ease }}
+          >
+            Rich color, considered details, and a softer touch for the spaces you return to every day.
+          </motion.p>
         </div>
 
         <motion.div
-          className="grid gap-3 border-t border-[#f1c85b]/45 pt-4 sm:flex sm:flex-wrap sm:items-center sm:gap-4"
-          initial={{ opacity: 0, y: 22 }}
+          className="flex flex-wrap items-end justify-between gap-5 border-t border-[#d4b78a]/35 pt-5"
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 5.45, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: heroEntranceStart + 0.5, duration: 0.7, ease }}
         >
-          {detailItems.map((item) => (
-            <span
-              className="inline-flex min-h-10 items-center border border-white/18 bg-black/38 px-3 text-[0.74rem] font-black uppercase text-[#f7f0de] backdrop-blur"
-              key={item}
-            >
-              {item}
-            </span>
-          ))}
+          <a
+            href="#product-wall"
+            className="group inline-flex items-center gap-3 [font-family:var(--font-brand)] text-sm font-extrabold uppercase tracking-[0.16em] text-[#f7f2e9] no-underline outline-none transition-colors hover:text-[#d4b78a] focus-visible:ring-2 focus-visible:ring-[#d4b78a] sm:text-base"
+          >
+            Explore collection
+            <span className="text-xl leading-none transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
+          </a>
+          <span className="[font-family:var(--font-brand)] text-xs font-extrabold uppercase tracking-[0.17em] text-[#d4b78a]">
+            MM Textile / Egypt
+          </span>
         </motion.div>
       </div>
+
+      <motion.div
+        className="relative order-1 min-h-0 aspect-[4/3] overflow-hidden bg-[#c6aa8d] will-change-transform lg:order-2 lg:aspect-auto"
+        initial={{ opacity: 0, scale: 1.035 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: heroEntranceStart, duration: 0.95, ease }}
+      >
+        <Image
+          src="/uploads/products/royal-border-bath-towel-variant-2-c621a342-df77-40dd-bcee-e74d0c120605.webp"
+          alt="Navy, magenta, and burgundy Royal Border bath towels displayed together"
+          fill
+          preload
+          sizes="(min-width: 1024px) 57vw, 100vw"
+          className="object-cover object-center"
+        />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#142b40]/55 to-transparent" />
+        <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 text-[#fffaf3] sm:inset-x-8 sm:bottom-8">
+          <div>
+            <p className="m-0 [font-family:var(--font-brand)] text-xs font-extrabold uppercase tracking-[0.18em]">The signature</p>
+            <p className="m-0 mt-1 [font-family:var(--font-editorial)] text-3xl font-medium italic leading-none sm:text-4xl">Royal Border</p>
+          </div>
+          <span className="[font-family:var(--font-brand)] text-sm font-extrabold uppercase tracking-[0.14em]">Bath towel</span>
+        </div>
+      </motion.div>
     </section>
   );
 }

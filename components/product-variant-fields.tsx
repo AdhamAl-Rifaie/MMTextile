@@ -5,28 +5,6 @@ import { ImagePlus, Plus, Trash2 } from "lucide-react";
 import type { ProductColorVariant } from "@/lib/products";
 
 const maxVariants = 12;
-const layoutPlans = [
-  {
-    card: "md:col-span-7 md:-rotate-1",
-    body: "lg:grid-cols-[minmax(180px,0.62fr)_minmax(0,1fr)]",
-    image: "aspect-[5/4]"
-  },
-  {
-    card: "md:col-span-5 md:translate-y-8 md:rotate-[1.2deg]",
-    body: "lg:grid-cols-1",
-    image: "aspect-[4/3]"
-  },
-  {
-    card: "md:col-span-5 md:-translate-y-2 md:rotate-[0.8deg]",
-    body: "lg:grid-cols-1",
-    image: "aspect-[1/1]"
-  },
-  {
-    card: "md:col-span-7 md:translate-y-5 md:-rotate-[1.1deg]",
-    body: "lg:grid-cols-[minmax(0,1fr)_minmax(180px,0.58fr)]",
-    image: "aspect-[4/5] lg:order-2"
-  }
-];
 
 type EditableVariant = Partial<ProductColorVariant>;
 
@@ -94,14 +72,14 @@ export function ProductVariantFields({
   };
 
   return (
-    <div className="grid gap-4 border-t border-[#f1c85b]/25 pt-5">
+    <div className="grid gap-4 border-t border-[#16436f]/16 pt-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="m-0 text-[0.78rem] font-black uppercase text-[#f1c85b]">
+          <p className="m-0 text-[0.78rem] font-black uppercase text-[#16436f]">
             Color variants
           </p>
-          <p className="m-0 mt-1 max-w-xl text-sm leading-5 text-[#b8aa8a]">
-            Add each towel color as its own visual tile. The layout shifts slightly so it is easier to scan large collections.
+          <p className="m-0 mt-1 max-w-xl text-sm leading-5 text-[#60738d]">
+            Add each towel color and its image in a consistent visual record.
           </p>
         </div>
         <button
@@ -115,34 +93,32 @@ export function ProductVariantFields({
         </button>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-12 md:items-start">
+      <div className="grid items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {variants.map((variant, index) => {
           const slot = index + 1;
           const previewUrl = imagePreviews[slot] ?? variant.imageUrl;
           const hasSelectedImage = Boolean(imagePreviews[slot]);
-          const plan = layoutPlans[index % layoutPlans.length];
-
           return (
             <div
-              className={`group relative grid gap-3 overflow-hidden border border-[#f1c85b]/20 bg-[#070707]/90 p-3 shadow-[0_22px_55px_rgba(0,0,0,0.32)] transition duration-300 hover:-translate-y-1 hover:border-[#f1c85b]/55 ${plan.card}`}
+              className="group relative grid content-start gap-3 overflow-hidden border border-[#16436f]/16 bg-[#f7f8fa] p-3 shadow-[0_18px_44px_rgba(22,67,111,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#16436f]/45 hover:shadow-[0_24px_58px_rgba(22,67,111,0.13)]"
               key={`${variant.id ?? "new"}-${index}`}
             >
               <input name={`variantId${slot}`} type="hidden" value={variant.id ?? ""} />
               <input name={`variantImageUrl${slot}`} type="hidden" value={variant.imageUrl ?? ""} />
 
-              <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-3">
+              <div className="flex items-center justify-between gap-3 border-b border-[#16436f]/12 pb-3">
                 <div className="flex items-center gap-3">
-                  <span className="text-[1.6rem] font-black leading-none text-[#f1c85b] [font-family:var(--font-brand)]">
+                  <span className="text-[1.6rem] font-black leading-none text-[#16436f] [font-family:var(--font-brand)]">
                     {String(slot).padStart(2, "0")}
                   </span>
-                  <p className="m-0 text-[0.7rem] font-black uppercase text-[#f1c85b]">
+                  <p className="m-0 text-[0.7rem] font-black uppercase text-[#16436f]">
                     Variant field
                   </p>
                 </div>
                 {variants.length > 1 ? (
                   <button
                     aria-label={`Remove variant ${slot}`}
-                    className="grid h-9 w-9 place-items-center border border-[#ff8178]/45 text-[#ff8178] transition hover:bg-[#ff8178] hover:text-black"
+                    className="grid h-9 w-9 place-items-center border border-[#c84c45]/45 text-[#a83b35] transition hover:bg-[#c84c45] hover:text-white"
                     onClick={() => removeVariant(index)}
                     title={`Remove variant ${slot}`}
                     type="button"
@@ -152,8 +128,8 @@ export function ProductVariantFields({
                 ) : null}
               </div>
 
-              <div className={`grid gap-3 lg:items-stretch ${plan.body}`}>
-                <div className={`relative overflow-hidden border border-white/10 bg-black/55 ${plan.image}`}>
+              <div className="grid gap-3">
+                <div className="relative aspect-[4/3] overflow-hidden border border-[#16436f]/12 bg-[#e9eef3]">
                   {previewUrl ? (
                     <img
                       alt=""
@@ -161,13 +137,13 @@ export function ProductVariantFields({
                       src={previewUrl}
                     />
                   ) : (
-                    <div className="grid h-full w-full place-items-center bg-[linear-gradient(135deg,rgba(241,200,91,0.12),transparent_52%),linear-gradient(45deg,#090909,#16120a)] text-[#f1c85b]">
+                    <div className="grid h-full w-full place-items-center bg-[linear-gradient(135deg,rgba(22,67,111,0.1),transparent_52%),linear-gradient(45deg,#f7f8fa,#e6ebf0)] text-[#16436f]">
                       <ImagePlus aria-hidden="true" size={34} strokeWidth={1.8} />
                     </div>
                   )}
 
                   <label
-                    className="absolute bottom-3 right-3 inline-grid h-12 w-12 cursor-pointer place-items-center border border-[#f1c85b]/75 bg-black/70 text-[#f1c85b] backdrop-blur transition hover:bg-[#f1c85b] hover:text-black"
+                    className="absolute bottom-3 right-3 inline-grid h-12 w-12 cursor-pointer place-items-center border border-[#16436f]/30 bg-white/88 text-[#16436f] backdrop-blur transition hover:bg-[#16436f] hover:text-white"
                     htmlFor={`variantImage${slot}`}
                     title={variant.imageUrl ? "Replace image" : "Add image"}
                   >
@@ -208,19 +184,19 @@ export function ProductVariantFields({
                         />
                         <span
                           aria-hidden="true"
-                          className="mt-auto h-12 w-12 shrink-0 border border-white/10"
+                          className="mt-auto h-12 w-12 shrink-0 border border-[#16436f]/14"
                           style={{ backgroundColor: variant.color || "#d7ad47" }}
                         />
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex min-h-12 flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-3">
-                    <p className="m-0 max-w-[240px] truncate text-[0.68rem] font-bold uppercase text-[#b8aa8a]">
+                  <div className="flex min-h-12 flex-wrap items-center justify-between gap-3 border-t border-[#16436f]/10 pt-3">
+                    <p className="m-0 max-w-[240px] truncate text-[0.68rem] font-bold uppercase text-[#60738d]">
                       {hasSelectedImage ? `Image added: ${imageNames[slot]}` : previewUrl ? "Saved image ready" : "No image yet"}
                     </p>
                     {previewUrl ? (
-                      <span className="border border-[#f1c85b]/45 px-2.5 py-1 text-[0.66rem] font-black uppercase text-[#f1c85b]">
+                      <span className="border border-[#16436f]/22 bg-[#eef2f6] px-2.5 py-1 text-[0.66rem] font-black uppercase text-[#16436f]">
                         Visual set
                       </span>
                     ) : null}
@@ -232,7 +208,7 @@ export function ProductVariantFields({
         })}
       </div>
 
-      <p className="m-0 text-[0.78rem] leading-5 text-[#b8aa8a]">
+      <p className="m-0 text-[0.78rem] leading-5 text-[#60738d]">
         {variants.length}/{maxVariants} colors. Each uploaded image is optimized before it is saved.
       </p>
     </div>

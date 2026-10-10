@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start",
     "import:supabase": "node scripts/import-local-data.mjs",
+    "import:supabase:reset": "cross-env RESET_SUPABASE_DATA=true node scripts/import-local-data.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
     "@supabase/supabase-js": "2.117.1",
     "@tailwindcss/postcss": "^4.3.3",
+    "cross-env": "^10.1.0",
     "framer-motion": "^13.4.2",
     "lucide-react": "^1.48.0",
     "next": "16.3.6",
