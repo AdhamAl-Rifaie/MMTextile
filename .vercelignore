@@ -1,0 +1,11 @@
+.env*
+.git
+.next
+node_modules
+out
+dist
+*.tsbuildinfo
+/*.png
+/*.jpg
+/*.jpeg
+flutter_basic_app
